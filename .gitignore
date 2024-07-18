@@ -6,6 +6,7 @@
 **/.idea/
 **/bin/
 **/obj/
+**/Import Schema Logs/
 
 # Compiled output
 /dist
