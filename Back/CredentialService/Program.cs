@@ -3,6 +3,14 @@ using BLL.SqlConnectionStringProviders.ConfigurationExtensions;
 using BLL.SqlConnectionStringProviders;
 using DAL.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
+using BLL.TokenHandler;
+using Api.Services.Interfaces;
+using Api.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using DAL.Repositories.Interfaces;
+using BLL.TokenHandler.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace CredentialService
 {
@@ -21,6 +29,7 @@ namespace CredentialService
             builder.Services.AddAuthentication("Bearer").AddJwtBearer();
             builder.Services.AddAuthorization();
             builder.Services.Configure<SqlConnectionStringOptions>(options => builder.Configuration.BuildSqlConnectionStringOptions(options));
+            builder.Services.AddTransient<IRegisterService, UserRegisterService>();
             builder.Services.AddTransient<ISqlConnectionStringProvider, SqlConnectionStringProvider>();
             builder.Services.AddDbContext<UnitOfWork>((serviceProvider, options) =>
             {
@@ -32,6 +41,10 @@ namespace CredentialService
 
                 options.UseSqlServer(connectionStringProvider.GetSqlDatabaseConnectionString());
             });
+            builder.Services.AddTransient<SecurityTokenHandler, JwtSecurityTokenHandler>()
+                    .AddTransient<ISecurityTokenHandler, SecurityTokenHandlerAdapter>();
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

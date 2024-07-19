@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        IUserRepository Users { get; }
+        IUserRepository UsersRepository { get; }
 
         Task SaveChangesAsync();
     }

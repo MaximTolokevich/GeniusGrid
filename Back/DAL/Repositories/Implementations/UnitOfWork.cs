@@ -1,4 +1,5 @@
-﻿using DAL.Repositories.Interfaces;
+﻿using DAL.Entities;
+using DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,8 +9,8 @@ namespace DAL.Repositories.Implementations
     {
         private readonly IUserRepository _userRepository;
         private readonly ILogger<UnitOfWork> _logger;
-        public IUserRepository Users => _userRepository ?? new UserRepository(this);
-
+        public IUserRepository UsersRepository => _userRepository ?? new UserRepository(this);
+        private DbSet<UserDbEntry> Users { get; set; }
         public UnitOfWork(DbContextOptions<UnitOfWork> options, ILogger<UnitOfWork> logger) : base(options)
         {
             _logger = logger;
