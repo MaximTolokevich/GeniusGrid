@@ -22,7 +22,7 @@ namespace Api.Services
             {
                 var user = new UserDbEntry()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = model.Name,
                     Email = model.Email,
                     Password = model.Password,

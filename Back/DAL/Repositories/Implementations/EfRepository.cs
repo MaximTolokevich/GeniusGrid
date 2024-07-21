@@ -19,7 +19,7 @@ namespace DAL.Repositories.Implementations
             return await query.ToListAsync();
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id)
+        public virtual async Task<T> GetByIdAsync(string id)
         {
             var query = Table;
 
@@ -50,7 +50,7 @@ namespace DAL.Repositories.Implementations
             }
         }
 
-        public virtual bool Delete(Guid id)
+        public virtual bool Delete(string id)
         {
             try
             {

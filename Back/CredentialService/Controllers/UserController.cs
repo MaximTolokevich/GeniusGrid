@@ -29,7 +29,7 @@ namespace CredentialService.Controllers
 
                 if (newUser is null)
                 {
-                    return BadRequest();
+                    return BadRequest("A user with this email has already been created");
                 }
 
                 var claims = new List<Claim> {
