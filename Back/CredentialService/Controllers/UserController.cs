@@ -41,7 +41,7 @@ namespace CredentialService.Controllers
                     Password = user.Password,
                 };
 
-                var response = _userAuthenticateService.Authenticate(authUser);
+                var response = await _userAuthenticateService.Authenticate(authUser);
                 return Ok(response);
             }
             catch (Exception)
