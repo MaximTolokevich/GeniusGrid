@@ -20,7 +20,8 @@ namespace CredentialService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserRegisterRequest user)
+        [Route("Registration")]
+        public async Task<IActionResult> Registration(UserRegisterRequest user)
         {
             try
             {
