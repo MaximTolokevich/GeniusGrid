@@ -1,16 +1,15 @@
-using BLL.SqlConnectionStringProviders.Options;
-using BLL.SqlConnectionStringProviders.ConfigurationExtensions;
-using BLL.SqlConnectionStringProviders;
-using DAL.Repositories.Implementations;
-using Microsoft.EntityFrameworkCore;
-using BLL.TokenHandler;
-using Api.Services.Interfaces;
 using Api.Services;
+using Api.Services.Interfaces;
+using BLL.SqlConnectionStringProviders;
+using BLL.SqlConnectionStringProviders.ConfigurationExtensions;
+using BLL.SqlConnectionStringProviders.Options;
+using BLL.TokenHandler;
+using BLL.TokenHandler.Options;
+using DAL.Repositories.Implementations;
+using DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using DAL.Repositories.Interfaces;
-using BLL.TokenHandler.Options;
-using Microsoft.Extensions.Configuration;
 
 namespace CredentialService
 {
@@ -29,8 +28,9 @@ namespace CredentialService
             builder.Services.AddAuthentication("Bearer").AddJwtBearer();
             builder.Services.AddAuthorization();
             builder.Services.Configure<SqlConnectionStringOptions>(options => builder.Configuration.BuildSqlConnectionStringOptions(options));
-            builder.Services.AddTransient<IRegisterService, UserRegisterService>();
+            builder.Services.AddTransient<IRegistrationService, UserRegisterService>();
             builder.Services.AddTransient<ISqlConnectionStringProvider, SqlConnectionStringProvider>();
+            builder.Services.AddTransient<IUserAuthenticateService, UserAuthenticateService>();
             builder.Services.AddDbContext<UnitOfWork>((serviceProvider, options) =>
             {
                 var connectionStringProvider = serviceProvider.GetService<ISqlConnectionStringProvider>();

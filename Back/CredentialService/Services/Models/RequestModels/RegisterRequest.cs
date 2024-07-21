@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Services.Models
+namespace Api.Services.Models.RequestModels
 {
-    public class UserRegisterRequest
+    public class RegistrationRequest
     {
         [Required]
         public required string Email { get; set; }

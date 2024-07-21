@@ -1,12 +1,12 @@
 ﻿using Api.Services.Interfaces;
-using Api.Services.Models;
+using Api.Services.Models.RequestModels;
 using BLL.UserService.Models;
 using DAL.Entities;
 using DAL.Repositories.Interfaces;
 
 namespace Api.Services
 {
-    public class UserRegisterService : IRegisterService
+    public class UserRegisterService : IRegistrationService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,7 +15,7 @@ namespace Api.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<User?> Register(UserRegisterRequest model)
+        public async Task<User?> Register(RegistrationRequest model)
         {
             var userExisted = await _unitOfWork.UsersRepository.GetByEmailAsync(model.Email);
             if (userExisted == null)
