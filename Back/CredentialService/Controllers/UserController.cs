@@ -4,7 +4,6 @@ using Api.Services.Models.ResponseModels;
 using BLL.TokenHandler;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace CredentialService.Controllers
 {
@@ -20,7 +19,7 @@ namespace CredentialService.Controllers
         {
             _securityTokenHandler = hendler;
             _registerService = registerService;
-            _userAuthenticateService = userAuthenticateService; 
+            _userAuthenticateService = userAuthenticateService;
         }
 
         [HttpPost]
@@ -56,12 +55,20 @@ namespace CredentialService.Controllers
         public async Task<ActionResult<AuthenticateResponse>> Authenticate(AuthenticateRequest authenticateRequest)
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
-            var user =  await _userAuthenticateService.Authenticate(authenticateRequest);
+            var user = await _userAuthenticateService.Authenticate(authenticateRequest);
             if (user is null)
             {
                 return Unauthorized();
             }
             return Ok(user);
+        }
+
+        [HttpPost]
+        [Route("GetAll")]
+        [Authorize]
+        public ActionResult GetAll()
+        {
+            return Ok();
         }
     }
 }
