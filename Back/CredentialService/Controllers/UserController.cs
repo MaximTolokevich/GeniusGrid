@@ -21,7 +21,7 @@ namespace CredentialService.Controllers
             _registerService = registerService;
             _userAuthenticateService = userAuthenticateService;
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("Registration")]
         public async Task<ActionResult<RegistrationResponse>> Registration(RegistrationRequest user)
