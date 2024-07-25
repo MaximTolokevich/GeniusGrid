@@ -71,6 +71,17 @@ namespace CredentialService
                     .AddTransient<ISecurityTokenHandler, SecurityTokenHandlerAdapter>();
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -79,6 +90,8 @@ namespace CredentialService
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

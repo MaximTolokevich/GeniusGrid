@@ -1,15 +1,22 @@
 <form
-  class="login-form"
+  class="-form"
   [formGroup]="form"
   (ngSubmit)="onSubmit()"
 >
-  <h1 class="h1 mb60">Login</h1>
+  <h1 class="h1 mb60">Registration</h1>
 
   <label class="control-label mb16">
     Username
     <input
-      formControlName="username"
+      formControlName="name"
       class="control-input" type="text" placeholder="Enter Login">
+  </label>
+
+  <label class="control-label mb16">
+    Email
+    <input
+      formControlName="email"
+      class="control-input" type="text" placeholder="Enter Email">
   </label>
 
   <label class="control-label mb32">
