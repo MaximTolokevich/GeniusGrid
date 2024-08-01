@@ -15,4 +15,9 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TaskService\Interfaces\" />
+    <Folder Include="TaskService\Implementations\" />
+  </ItemGroup>
+
 </Project>
